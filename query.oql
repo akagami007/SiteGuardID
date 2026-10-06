@@ -1,0 +1,9 @@
+[out:json];
+(
+  node["amenity"="cafe"](around:2000,-6.2625,106.8141);
+  way["amenity"="cafe"](around:2000,-6.2625,106.8141);
+  node["shop"="laundry"](around:2000,-6.2625,106.8141);
+  way["shop"="laundry"](around:2000,-6.2625,106.8141);
+  node["shop"="dry_cleaning"](around:2000,-6.2625,106.8141);
+);
+out center;
