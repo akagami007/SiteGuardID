@@ -125,7 +125,9 @@ export default function Dashboard() {
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <button className="text-indigo-600 hover:text-indigo-800 font-medium text-sm">Lihat Detail</button>
+                      <Link href={`/report/${report.id}`} className="text-indigo-600 hover:text-indigo-800 font-medium text-sm">
+                        Lihat Detail
+                      </Link>
                     </td>
                   </tr>
                 ))}

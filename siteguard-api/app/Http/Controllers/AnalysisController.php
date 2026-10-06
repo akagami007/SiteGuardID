@@ -13,6 +13,12 @@ class AnalysisController extends Controller
         return response()->json($reports);
     }
 
+    public function show($id)
+    {
+        $report = Report::findOrFail($id);
+        return response()->json($report);
+    }
+
     public function evaluate(Request $request)
     {
         // 1. Validasi Input
