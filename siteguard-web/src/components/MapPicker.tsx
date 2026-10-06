@@ -14,10 +14,12 @@ const icon = L.icon({
   iconAnchor: [12, 41],
 });
 
-function LocationMarker({ position, setPosition }: { position: [number, number], setPosition: (pos: [number, number]) => void }) {
+function LocationMarker({ position, setPosition, readOnly }: { position: [number, number], setPosition: (pos: [number, number]) => void, readOnly?: boolean }) {
   useMapEvents({
     click(e) {
-      setPosition([e.latlng.lat, e.latlng.lng]);
+      if (!readOnly) {
+        setPosition([e.latlng.lat, e.latlng.lng]);
+      }
     },
   });
 
@@ -27,35 +29,45 @@ function LocationMarker({ position, setPosition }: { position: [number, number],
 export default function MapPicker({ 
   initialLat, 
   initialLng, 
-  onChange 
+  onChange,
+  readOnly = false
 }: { 
   initialLat: number, 
   initialLng: number, 
-  onChange: (lat: number, lng: number) => void 
+  onChange?: (lat: number, lng: number) => void,
+  readOnly?: boolean
 }) {
   const [position, setPosition] = useState<[number, number]>([initialLat, initialLng]);
 
   // Sync position changes back to parent
   useEffect(() => {
-    onChange(position[0], position[1]);
+    if (onChange && !readOnly) {
+      onChange(position[0], position[1]);
+    }
   }, [position]);
 
   return (
     <div className="h-64 w-full rounded-xl overflow-hidden border border-slate-300 relative z-0">
       <MapContainer 
         center={position} 
-        zoom={13} 
+        zoom={14} 
         style={{ height: "100%", width: "100%" }}
+        zoomControl={!readOnly}
+        dragging={!readOnly}
+        scrollWheelZoom={!readOnly}
+        doubleClickZoom={!readOnly}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <LocationMarker position={position} setPosition={setPosition} />
+        <LocationMarker position={position} setPosition={setPosition} readOnly={readOnly} />
       </MapContainer>
-      <div className="absolute top-2 right-2 bg-white px-3 py-1 text-xs font-semibold text-slate-700 rounded-md shadow-sm z-[1000] border border-slate-200 pointer-events-none">
-        Klik di mana saja untuk memindah pin
-      </div>
+      {!readOnly && (
+        <div className="absolute top-2 right-2 bg-white px-3 py-1 text-xs font-semibold text-slate-700 rounded-md shadow-sm z-[1000] border border-slate-200 pointer-events-none">
+          Klik di mana saja untuk memindah pin
+        </div>
+      )}
     </div>
   );
 }

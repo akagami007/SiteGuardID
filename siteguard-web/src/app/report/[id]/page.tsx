@@ -89,8 +89,16 @@ export default function ReportDetailPage() {
         {/* Map Snapshot */}
         <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 overflow-hidden">
            <h3 className="font-bold text-lg text-slate-800 mb-4">Lokasi Geografis</h3>
-           <div className="pointer-events-none rounded-xl overflow-hidden border border-slate-100">
-             <DynamicMap initialLat={report.latitude} initialLng={report.longitude} onChange={() => {}} />
+           <div className="rounded-xl overflow-hidden border border-slate-200 mb-4 shadow-inner">
+             <DynamicMap initialLat={report.latitude} initialLng={report.longitude} readOnly={true} />
+           </div>
+           <div className="bg-slate-50 p-4 rounded-xl border border-slate-100">
+             <div className="text-xs text-slate-500 uppercase tracking-widest font-bold mb-1">Detail Lokasi</div>
+             <div className="font-medium text-slate-800 mb-2">{report.location_name}</div>
+             <div className="grid grid-cols-2 gap-2 text-sm text-slate-600 font-mono bg-white p-2 rounded border border-slate-200">
+               <div>Lat: {Number(report.latitude).toFixed(6)}</div>
+               <div>Lng: {Number(report.longitude).toFixed(6)}</div>
+             </div>
            </div>
         </div>
 
