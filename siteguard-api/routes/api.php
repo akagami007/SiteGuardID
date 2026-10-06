@@ -9,4 +9,5 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+Route::get('/reports', [AnalysisController::class, 'index']);
 Route::post('/evaluate', [AnalysisController::class, 'evaluate']);

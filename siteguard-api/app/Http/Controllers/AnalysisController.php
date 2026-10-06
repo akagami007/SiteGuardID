@@ -7,6 +7,12 @@ use App\Models\Report;
 
 class AnalysisController extends Controller
 {
+    public function index()
+    {
+        $reports = Report::orderBy('created_at', 'desc')->take(10)->get();
+        return response()->json($reports);
+    }
+
     public function evaluate(Request $request)
     {
         // 1. Validasi Input
