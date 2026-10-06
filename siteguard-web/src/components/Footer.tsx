@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Footer() {
   return (
     <footer className="bg-white border-t border-slate-200 mt-auto">
@@ -9,9 +11,9 @@ export default function Footer() {
           <span className="text-xs text-slate-500 mt-1">© {new Date().getFullYear()} SiteGuard ID. Business Site Due Diligence.</span>
         </div>
         <div className="flex gap-6 text-sm font-medium text-slate-500">
-          <a href="#" className="hover:text-indigo-600 transition-colors">Tentang Kami</a>
-          <a href="#" className="hover:text-indigo-600 transition-colors">Kebijakan Privasi</a>
-          <a href="#" className="hover:text-indigo-600 transition-colors">Bantuan</a>
+          <Link href="/about" className="hover:text-indigo-600 transition-colors">Tentang Kami</Link>
+          <Link href="/privacy" className="hover:text-indigo-600 transition-colors">Kebijakan Privasi</Link>
+          <Link href="/help" className="hover:text-indigo-600 transition-colors">Bantuan</Link>
         </div>
       </div>
     </footer>
